@@ -1,0 +1,42 @@
+模块一：底层预测逻辑重构 (Backend & Prediction Engine)
+1.1 移除强制步长下限 (Remove Step Caps)：
+
+操作： 定位到 workers.py 等相关文件，删除 predict_rolling 中类似 max(0.002, adjusted_delta) 的硬编码托底逻辑。
+
+预期： 允许单步预测出现负增长或零增长，真实反映微观回撤。
+
+1.2 废除固定公式平滑逻辑 (Deprecate Synthesis Module)：
+
+操作： 彻底弃用并移除 _synthesize_rolling 函数及其每步固定 +0.3% 的视觉补偿计算。
+
+预期： K线预测路径的唯一驱动力更改为：原始模型输出(price_delta) × 动态动量衰减，接受并保留输出的锯齿状震荡。
+
+1.3 优化模型编排与集成 (Refine Model Orchestration)：
+
+操作： 在进行 Alpha Combination 时，明确各子模型的职责权重。例如，让 FT-iTransformer 侧重于利用频域特征锚定宏观的中枢趋势，而让其他轻量化模块或特定的 Attention Head 专门拟合高频的微观波动。
+
+预期： 确保即使去除了人工平滑，系统集成后的最终输出依然具备强大的抗纯粹随机噪声能力。
+
+模块二：前端图表渲染升级 (Frontend & Visualization - PyQtGraph)
+2.1 开发置信带渲染组件 (Implement Confidence Bands)：
+
+操作： 在原有的 6步 × 20分钟 滚动预测图表逻辑中，引入 pyqtgraph.FillBetweenItem 类。
+
+预期： 将现有的“单调黄色虚线”升级为“中心轨迹 + 半透明波动带”的形式。
+
+2.2 数据接口到视觉属性的映射 (Data-to-Visual Mapping)：
+
+操作： 解析预测系统输出的 [方向, 目标价, 置信度, 上下限] 数组。
+
+中心线映射： 使用真实且带有锯齿的“目标价”数组绘制主轨迹线。
+
+边界映射： 将“上下限”数据分别作为 FillBetweenItem 的上下边界。
+
+透明度/颜色映射： 将“置信度”映射为多边形的 Alpha 值（透明度）或颜色饱和度，置信度越低，波动带越宽且颜色越警示。
+
+模块三：验证与测试对齐 (Validation & Testing)
+3.1 行为特征保真度测试：
+
+操作： 选取几段具有极端情绪（如高恐慌指数、资金流出与散户羊群效应叠加）的历史切片进行回溯测试。
+
+预期： 观察在没有平滑保护的情况下，包含 66维 深度特征（特别是 CMF、OBV等资金面指标）的模型输出是否能敏锐地在“中心预测线”上打出符合逻辑的锯齿波谷。

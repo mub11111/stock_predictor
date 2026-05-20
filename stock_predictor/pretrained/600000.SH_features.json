@@ -1,0 +1,1 @@
+{"selected_features": ["ma5", "fomo_score", "roc5", "vwap_pull", "kdj_d", "macd", "ma10", "momentum", "close", "crowd_sent", "high", "macd_signal", "macd_hist", "up_down_vol", "kdj_k", "low", "meta_signal", "roc10", "open", "chaikin_osc", "obv_div", "kdj_j", "obv", "rsi14", "ma20_slope", "large_lot", "vol_regime", "willr14"], "feature_pool_version": 85}
