@@ -1,1 +1,0 @@
-{"selected_features": ["vwap_pull", "retail_intensity", "large_lot", "ma60_slope", "ma60", "atr14", "vpt_ratio", "high", "vol_ratio", "close", "obv_div", "low", "macd_signal", "close_location", "open", "macd_hist", "obv", "meta_signal", "up_down_vol", "vol_regime", "gap_ratio", "ma5", "macd", "sm_flow"], "feature_pool_version": 85}

@@ -1,1 +1,0 @@
-{"selected_features": ["close_location", "dc_upper", "vpt_ratio", "up_down_vol", "macd_signal", "vol_regime", "dc_lower", "obv_div", "intraday_intensity", "dc_mid", "panic_sel", "gap_ratio", "ma60", "roc5", "vol_roc5", "bb_upper", "large_lot", "ma20", "retail_intensity", "ma20_slope", "bb_middle", "mfi", "kdj_j", "bb_lower", "crowd_sent", "atr14"], "feature_pool_version": 85}
