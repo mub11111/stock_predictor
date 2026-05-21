@@ -1,3 +1,0 @@
-- [user-profile](user_profile.md) — 用户对 AI 系统提示词分析、逆向工程和透明性有浓厚兴趣
-- [self-improvement-from-prompts](feedback_self_improvement.md) — 从泄露提示词中学习行为模式并持续优化
-- [system-prompt-leak-repos](reference_system_prompts.md) — 主要 AI 系统提示词泄露收集仓库及工作目录文件
